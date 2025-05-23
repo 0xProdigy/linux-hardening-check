@@ -1,46 +1,35 @@
-# 🔐 linux-hardening-check.sh
+# 🔐 linux-hardening-check.py
 
-Un script en Bash puro que realiza verificaciones básicas de seguridad ("hardening") en sistemas Linux. Ideal para auditorías rápidas, automatización o revisión en servidores recién desplegados.
+Un script en Python que realiza verificaciones clave de seguridad (“hardening”) en sistemas Linux. Pensado para auditorías rápidas, validación de buenas prácticas y revisiones post-instalación. Más potente y detallado que su predecesor en Bash, con salida colorida y logs completos.
 
 ---
 
 ## 📋 ¿Qué hace este script?
 
-`linux-hardening-check.sh` examina configuraciones clave de seguridad en un sistema Linux y reporta hallazgos relevantes. No modifica nada — solo informa.
+`linux-hardening-check.py` analiza configuraciones comunes de seguridad en sistemas Linux y genera un reporte con hallazgos relevantes. **No realiza cambios en el sistema.**
 
 ### Verificaciones incluidas:
 
 - ✅ Permisos de archivos críticos: `/etc/passwd`, `/etc/shadow`, `/etc/group`
 - 👥 Usuarios con UID 0 distintos de `root`
-- 🔐 Expiración de contraseñas
-- 📡 Servicios inseguros activos (telnet, ftp, rsh)
-- 🛑 Acceso root vía SSH habilitado
-- 🧨 Binarios con bit SUID (sudo, passwd, etc.)
-- 🛡 Estado del firewall (ufw / iptables)
-- 📁 Últimos accesos (`lastlog`) y accesos fallidos (`/var/log/auth.log`)
+- 🔐 Expiración de contraseñas no configurada
+- 📡 Servicios inseguros activos (`telnet`, `ftp`, `rsh`)
+- 🛑 Acceso SSH como `root` habilitado
+- 🧨 Binarios con bit SUID (opcional)
+- 🛡 Firewall activo (`ufw`, `iptables`) y configurado
+- 📁 Registros recientes de login y escaladas (`journalctl` o `/var/log/auth.log`)
+- 📄 Registro detallado (`.log`) con advertencias y errores detectados
 
 ---
 
 ## 🚀 Uso
 
-### Requisitos:
-- Bash
-- Acceso como `root` para resultados completos (recomendado)
+### Requisitos
 
-### Ejecución típica:
+- Python 3.x
+- Acceso como `root` (recomendado para resultados completos)
+
+### Ejecución típica
 
 ```bash
-sudo ./linux-hardening-check.sh
-
-### 🌀 Indicadores de progreso:
-
-Durante tareas más lentas (como el escaneo de binarios SUID), el script muestra un spinner animado para indicar que está trabajando, evitando confusiones sobre posibles cuelgues.
-
-### 📦 Características
-✔️ Bash puro, sin dependencias externas
-
-🧱 Funciona en Debian, Ubuntu, CentOS, RHEL y derivados
-
-🛠 Ideal para automatización, scripts de post-instalación o auditoría inicial
-
-🌐 Salida clara y coloreada (compatible con terminales estándar)
+sudo python3 linux_hardening_check.py
